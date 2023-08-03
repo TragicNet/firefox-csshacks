@@ -1,8 +1,5 @@
-@import url(chrome/custom/remove_pinned_space.css);
 @import url(chrome/hide_toolbox_top_bottom_borders.css);
 @import url(chrome/overlay_menubar.css);
-
-@import url(chrome/custom/theme_color_variables.css);
 @import url(chrome/deprecated/theme_sidebar.css);
 @import url(chrome/compact_proton.css);
 @import url(chrome/floating_findbar_on_top.css);
@@ -28,29 +25,50 @@
 /* @import url('chrome/grid_overflow_menu.css'); */
 /* @import url('chrome/full_width_urlbar_popup.css'); */
 
+/* Remove space between tabs and pinned tabs */
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs])
+  > #tabbrowser-arrowscrollbox
+  > .tabbrowser-tab[first-visible-unpinned-tab] {
+  margin-inline-start: 0 !important;
+}
+
+/* Theme Color Variables */
+:root {
+  --uc-dark-bkgnd-color: rgb(22, 26, 33);
+  --uc-light-bkgnd-color: rgb(22, 26, 33);
+  --uc-active-color: rgb(28, 32, 40);
+  --uc-text-color: rgb(195, 198, 201);
+  --uc-border-color: rgb(28, 32, 40);
+}
+
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 * {
-    font-family: cursive !important;
+  font-family: cursive !important;
 }
 
 #webrtcIndicator {
-	display: none;
+  display: none;
 }
 
 #TabsToolbar {
-    padding-inline-start: initial !important;
+  padding-inline-start: initial !important;
 }
-.tabbrowser-tabs:not([movingtab]) .tabbrowser-tab[first-visible-tab] .tab-background,
-.tabbrowser-tabs[movingtab] .tabbrowser-tab[first-visible-tab][style*="translateX(0px)"] .tab-background {
-    border-inline-start: initial !important;
+.tabbrowser-tabs:not([movingtab])
+  .tabbrowser-tab[first-visible-tab]
+  .tab-background,
+.tabbrowser-tabs[movingtab]
+  .tabbrowser-tab[first-visible-tab][style*="translateX(0px)"]
+  .tab-background {
+  border-inline-start: initial !important;
 }
-
 
 .tabbrowser-tab {
-    padding-inline: 0px !important; /* By default, proton tabs have 2px + 2px = 4px space between them */
+  padding-inline: 0px !important; /* By default, proton tabs have 2px + 2px = 4px space between them */
 }
 
-#TabsToolbar .titlebar-spacer { display:none!important; }
+#TabsToolbar .titlebar-spacer {
+  display: none !important;
+}
 
 /* *******************************************************************
 	Toolbar Elements
@@ -58,11 +76,11 @@
 
 /* Custom back and forward buttons */
 #back-button {
-	list-style-image: url("left-arrow.svg") !important;
+  list-style-image: url("left-arrow.svg") !important;
 }
 
 #forward-button {
-	list-style-image: url("right-arrow.svg") !important;
+  list-style-image: url("right-arrow.svg") !important;
 }
 
 /* *******************************************************************
@@ -71,8 +89,8 @@
 
 /* Url bar suggestions list container */
 .urlbarView {
-	border-radius: 0 0 8px 8px !important;
-	box-shadow: none !important;
+  border-radius: 0 0 8px 8px !important;
+  box-shadow: none !important;
 }
 
 /* *******************************************************************
@@ -84,15 +102,15 @@
 .tab-line,
 .tabbrowser-tab::before,
 .tabbrowser-tab::after {
-	display: none !important;
+  display: none !important;
 }
 
 .titlebar-spacer[type="pre-tabs"] {
-	display: none;
+  display: none;
 }
 
 #nav-bar {
-	background-color: #161A21;
+  background-color: #161a21;
 }
 
 /*** Proton Tabs Tweaks ***/
@@ -100,63 +118,75 @@
 /* Adjust tab corner shape, optionally remove space below tabs */
 
 #tabbrowser-tabs {
-    --user-tab-rounding: 0px;
-    margin-inline-end: 0px !important;
+  --user-tab-rounding: 0px;
+  margin-inline-end: 0px !important;
 }
 
 .tab-background {
-    border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
-    margin-block: 1px 0 !important;
+  border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
+  margin-block: 1px 0 !important;
 }
-#scrollbutton-up, #scrollbutton-down { /* 6/10/2021 */
-    border-top-width: 1px !important;
-    border-bottom-width: 0 !important;
+#scrollbutton-up,
+#scrollbutton-down {
+  /* 6/10/2021 */
+  border-top-width: 1px !important;
+  border-bottom-width: 0 !important;
 }
 /* Container color bar visibility */
-.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
-    margin: 0px max(calc(var(--user-tab-rounding) - 3px), 0px) !important;
+.tabbrowser-tab[usercontextid]
+  > .tab-stack
+  > .tab-background
+  > .tab-context-line {
+  margin: 0px max(calc(var(--user-tab-rounding) - 3px), 0px) !important;
 }
 
 /* Override Normal Density height to Compact Density height only for tabs */
 
 #tabbrowser-tabs {
-    --tab-min-height: 29px !important;
+  --tab-min-height: 29px !important;
 }
 #scrollbutton-up,
 #scrollbutton-down {
-    border-top-width: 0 !important;
-    border-bottom-width: 0 !important;
+  border-top-width: 0 !important;
+  border-bottom-width: 0 !important;
 }
 
-    /* [Connected Tabs] Set a max height based on min-height plus margin-block: 1px 0 */
+/* [Connected Tabs] Set a max height based on min-height plus margin-block: 1px 0 */
 /* #TabsToolbar > hbox, #TabsToolbar-customization-target, #tabbrowser-arrowscrollbox  {
     max-height: 30px !important;
 } */
-    /* [Connected Tabs] Adjust padding around icons on buttons to avoid crushed images */
-#TabsToolbar-customization-target toolbarbutton > .toolbarbutton-icon, 
-#TabsToolbar-customization-target .toolbarbutton-text, 
+/* [Connected Tabs] Adjust padding around icons on buttons to avoid crushed images */
+#TabsToolbar-customization-target toolbarbutton > .toolbarbutton-icon,
+#TabsToolbar-customization-target .toolbarbutton-text,
 #TabsToolbar-customization-target .toolbarbutton-badge-stack,
-#scrollbutton-up,#scrollbutton-down {
-    padding-top: 7px !important;
-    padding-bottom: 6px !important;
+#scrollbutton-up,
+#scrollbutton-down {
+  padding-top: 7px !important;
+  padding-bottom: 6px !important;
 }
 
 /* Context Menu */
 
-menupopup{
-    --panel-background: #161a21 !important;
-    --panel-color: #8496A0 !important;
+menupopup {
+  --panel-background: #161a21 !important;
+  --panel-color: #8496a0 !important;
 }
 menupopup > menuitem[_moz-menuactive="true"]:not([disabled]),
 menupopup > menu[_moz-menuactive="true"]:not([disabled]),
-#context-navigation > menuitem[_moz-menuactive="true"]:not([disabled]) > .menu-iconic-left > .menu-iconic-icon{
-    background: #1c2028 !important;
-    color: #8496A0 !important;
+#context-navigation
+  > menuitem[_moz-menuactive="true"]:not([disabled])
+  > .menu-iconic-left
+  > .menu-iconic-icon {
+  background: #1c2028 !important;
+  color: #8496a0 !important;
 }
 menupopup > menuitem[_moz-menuactive="true"],
 menupopup > menu[_moz-menuactive="true"],
-#context-navigation > menuitem[_moz-menuactive="true"] > .menu-iconic-left > .menu-iconic-icon{
-    background: #161a21 !important;
+#context-navigation
+  > menuitem[_moz-menuactive="true"]
+  > .menu-iconic-left
+  > .menu-iconic-icon {
+  background: #161a21 !important;
 }
 
 .sidebar-splitter {
